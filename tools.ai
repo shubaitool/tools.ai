@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools Directory - Discover the Best AI Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .tool-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .tool-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .tool-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .tool-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .open-tool-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .open-tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .stats {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .stats-count {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-btn {
+                width: 250px;
+                text-align: center;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 AI Tools Directory</h1>
+            <p class="subtitle">Discover the best AI tools for every task</p>
+        </header>
+
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All Tools</button>
+            <button class="category-btn" data-category="chat">Chat AI</button>
+            <button class="category-btn" data-category="image">Image AI</button>
+            <button class="category-btn" data-category="video">Video AI</button>
+            <button class="category-btn" data-category="writing">Writing AI</button>
+            <button class="category-btn" data-category="coding">Coding AI</button>
+            <button class="category-btn" data-category="voice">Voice AI</button>
+            <button class="category-btn" data-category="design">Design AI</button>
+            <button class="category-btn" data-category="productivity">Productivity AI</button>
+        </div>
+
+        <div class="tools-grid" id="toolsGrid">
+            <!-- Chat AI Tools -->
+            <a href="https://chat.openai.com" target="_blank" class="tool-card" data-category="chat">
+                <h3 class="tool-name">ChatGPT</h3>
+                <span class="tool-category">Chat AI</span>
+                <p class="tool-description">The most advanced conversational AI model from OpenAI. Perfect for writing, coding, analysis, and creative tasks.</p>
+                <button class="open-tool-btn">🚀 Open ChatGPT</button>
+            </a>
+
+            <a href="https://claude.ai" target="_blank" class="tool-card" data-category="chat">
+                <h3 class="tool-name">Claude</h3>
+                <span class="tool-category">Chat AI</span>
+                <p class="tool-description">Anthropic's safe and helpful AI assistant. Excellent for complex reasoning, coding, and creative writing.</p>
+                <button class="open-tool-btn">🚀 Open Claude</button>
+            </a>
+
+            <a href="https://gemini.google.com" target="_blank" class="tool-card" data-category="chat">
+                <h3 class="tool-name">Gemini</h3>
+                <span class="tool-category">Chat AI</span>
+                <p class="tool-description">Google's powerful multimodal AI. Handles text, images, and complex queries with deep Google integration.</p>
+                <button class="open-tool-btn">🚀 Open Gemini</button>
+            </a>
+
+            <a href="https://perplexity.ai" target="_blank" class="tool-card" data-category="chat">
+                <h3 class="tool-name">Perplexity</h3>
+                <span class="tool-category">Chat AI</span>
+                <p class="tool-description">AI-powered search engine that provides accurate answers with real-time web sources and citations.</p>
+                <button class="open-tool-btn">🚀 Open Perplexity</button>
+            </a>
+
+            <!-- Image AI Tools -->
+            <a href="https://midjourney.com" target="_blank" class="tool-card" data-category="image">
+                <h3 class="tool-name">Midjourney</h3>
+                <span class="tool-category">Image AI</span>
+                <p class="tool-description">Generate stunning artwork from text prompts using Discord. Industry-leading image quality.</p>
+                <button class="open-tool-btn">🚀 Open Midjourney</button>
+            </a>
+
+            <a href="https://leonardo.ai" target="_blank" class="tool-card" data-category="image">
+                <h3 class="tool-name">Leonardo AI</h3>
+                <span class="tool-category">Image AI</span>
+                <p class="tool-description">Fast and powerful AI image generator with fine-tuned models for games, concepts, and photorealism.</p>
+                <button class="open-tool-btn">🚀 Open Leonardo AI</button>
+            </a>
+
+            <a href="https://remove.bg" target="_blank" class="tool-card" data-category="image">
+                <h3 class="tool-name">Remove.bg</h3>
+                <span class="tool-category">Image AI</span>
+                <p class="tool-description">Automatically remove backgrounds from images in seconds. Perfect for product photos and design.</p>
+                <button class="open-tool-btn">🚀 Open Remove.bg</button>
+            </a>
+
+            <!-- Video AI Tools -->
+            <a href="https://runwayml.com" target="_blank" class="tool-card" data-category="video">
+                <h3 class="tool-name">Runway ML</h3>
+                <span class="tool-category">Video AI</span>
+                <p class="tool-description">Professional video editing with AI. Generate, edit, and enhance videos with cutting-edge ML models.</p>
+                <button class="open-tool-btn">🚀 Open Runway ML</button>
+            </a>
+
+            <a href="https://pika.art" target="_blank" class="tool-card" data-category="video">
+                <h3 class="tool-name">Pika</h3>
+                <span class="tool-category">Video AI</span>
+                <p class="tool-description">Create stunning videos from text prompts. Fast, high-quality video generation with motion control.</p>
+                <button class="open-tool-btn">🚀 Open Pika</button>
+            </a>
+
+            <!-- Writing AI Tools -->
+            <a href="https://copy.ai" target="_blank" class="tool-card" data-category="writing">
+                <h3 class="tool-name">Copy.ai</h3>
+                <span class="tool-category">Writing AI</span>
+                <p class="tool-description">AI writing assistant for marketing copy, blog posts, social media, and more. 90+ templates.</p>
+                <button class="open-tool-btn">🚀 Open Copy.ai</button>
+            </a>
+
+            <a href="https://jasper.ai" target="_blank" class="tool-card" data-category="writing">
+                <h3 class="tool-name">Jasper</h3>
+                <span class="tool-category">Writing AI</span>
+                <p class="tool-description">Enterprise-grade AI writing platform. Perfect for teams creating long-form content at scale.</p>
+                <button class="open-tool-btn">🚀 Open Jasper</button>
+            </a>
+
+            <a href="https://writesonic.com" target="_blank" class="tool-card" data-category="writing">
+                <h3 class="tool-name">Writesonic</h3>
+                <span class="tool-category">Writing AI</span>
+                <p class="tool-description">AI writer with 100+ templates. SEO-optimized content, chatbot builder, and landing page generator.</p>
+                <button class="open-tool-btn">🚀 Open Writesonic</button>
+            </a>
+
+            <a href="https://rytr.me" target="_blank" class="tool-card" data-category="writing">
+                <h3 class="tool-name">Rytr</h3>
+                <span class="tool-category">Writing AI</span>
+                <p class="tool-description">Simple and powerful AI writing assistant. Great for emails, blog ideas, and social posts.</p>
+                <button class="open-tool-btn">🚀 Open Rytr</button>
+            </a>
+
+            <!-- Coding AI Tools -->
+            <a href="https://github.com/features/copilot" target="_blank" class="tool-card" data-category="coding">
+                <h3 class="tool-name">GitHub Copilot</h3>
+                <span class="tool-category">Coding AI</span>
+                <p class="tool-description">AI pair programmer that helps you write code faster. Works in VS Code, GitHub, and more.</p>
+                <button class="open-tool-btn">🚀 Open GitHub Copilot</button>
+            </a>
+
+            <a href="https://codeium.com" target="_blank" class="tool-card" data-category="coding">
+                <h3 class="tool-name">Codeium</h3>
+                <span class="tool-category">Coding AI</span>
+                <p class="tool-description">Free AI code completion tool. Works with 70+ languages in any IDE. Enterprise-ready.</p>
+                <button class="open-tool-btn">🚀 Open Codeium</button>
+            </a>
+
+            <!-- Voice AI Tools -->
+            <a href="https://elevenlabs.io" target="_blank" class="tool-card" data-category="voice">
+                <h3 class="tool-name">ElevenLabs</h3>
+                <span class="tool-category">Voice AI</span>
+                <p class="tool-description">Generate realistic speech from text. Clone voices, multilingual support, and studio quality.</p>
+                <button class="open-tool-btn">🚀 Open ElevenLabs</button>
+            </a>
+
+            <a href="https://murf.ai" target="_blank" class="tool-card" data-category="voice">
+                <h3 class="tool-name">Murf AI</h3>
+                <span class="tool-category">Voice AI</span>
+                <p class="tool-description">Create professional voiceovers for videos, presentations, and e-learning. 120+ voices.</p>
+                <button class="open-tool-btn">🚀 Open Murf AI</button>
+            </a>
+
+            <!-- Design AI Tools -->
+            <a href="https://canva.com" target="_blank" class="tool-card" data-category="design">
+                <h3 class="tool-name">Canva</h3>
+                <span class="tool-category">Design AI</span>
+                <p class="tool-description">Magic Studio with AI-powered design tools. Background remover, text-to-image, and more.</p>
+                <button class="open-tool-btn">🚀 Open Canva</button>
+            </a>
+
+            <!-- Productivity AI Tools -->
+            <a href="https://gamma.app" target="_blank" class="tool-card" data-category="productivity">
+                <h3 class="tool-name">Gamma</h3>
+                <span class="tool-category">Productivity AI</span>
+                <p class="tool-description">AI-powered presentations, websites, and webpages. Create in seconds from a prompt.</p>
+                <button class="open-tool-btn">🚀 Open Gamma</button>
+            </a>
+
+            <a href="https://notion.so" target="_blank" class="tool-card" data-category="productivity">
+                <h3 class="tool-name">Notion AI</h3>
+                <span class="tool-category">Productivity AI</span>
+                <p class="tool-description">AI assistant built into Notion. Summarize notes, generate ideas, and answer questions instantly.</p>
+                <button class="open-tool-btn">🚀 Open Notion AI</button>
+            </a>
+        </div>
+
+        <div class="stats">
+            <h3>Total AI Tools</h3>
+            <div class="stats-count" id="totalTools">21</div>
+        </div>
+    </div>
+
+    <script>
+        // Category filtering
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const toolCards = document.querySelectorAll('.tool-card');
+        const totalToolsCount = document.getElementById('totalTools');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Get category
+                const category = btn.dataset.category;
+                
+                // Filter tools
+                toolCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Update total tools count dynamically
+        totalToolsCount.textContent = toolCards.length;
+    </script>
+</body>
+</html>
